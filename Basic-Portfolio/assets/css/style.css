@@ -7,6 +7,8 @@ body{
 	background-image: url("../images/concrete-texture.png");
 	margin:0 auto;
 	min-height:1000px;
+	height:auto;
+
 }
 nav{
 	float:right;
@@ -57,15 +59,16 @@ aside{
 	border-style:solid;
 	border-color:#dddddd;
 	border-width: 1px;
-	width:270px;
+	min-width:268px;
 	float:right;
 	margin:20px auto;
+	max-width: 270px;
 
 }
 .AboutSection, .PortfolioSection, .ContactSection{
 	float:left;
 	color:#777777;
-	margin:20px auto;
+	margin:20px auto 200px;
 } 
 a:link{
 	text-decoration: none;
@@ -163,10 +166,11 @@ div.desc {
 	
 }
 footer {
-    position: relative;
-    bottom:0;
+    position: absolute;
+    bottom:20px;
     height: 100px;
-    width: 100%;
+    width: 960px;
+    max-width: 960px;
     background-color: #777777;
     color:#cccccc;
 	clear:both;
@@ -175,6 +179,6 @@ footer {
 	border-top-color:#4aaaa5;
 	border-top-style:solid;
 	border-width: 4px;
-	margin:20px auto;
+	
 }
 
