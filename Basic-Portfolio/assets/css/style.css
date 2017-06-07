@@ -119,16 +119,18 @@ form{
 	margin:20px;
 }
 .entry{
-	margin:20px 0;
+	margin: 20px 0;
 }
 input{
 	color:#777777;
 	width:100%;
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
-	padding-left:10px
-	margin:20px 0;
 	height:25px;
-	padding:0 -20px;
+	padding:5px;
+	box-sizing: border-box;
+	margin-top:10px;
+
+	
 }
 #MessageInput{
 	height:250px;
@@ -136,7 +138,10 @@ input{
 	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
 	width:100%;
 	max-width:100%;
-	padding:0 -20px 0;
+	margin:10px 0 20px;
+	padding:5px;
+	box-sizing: border-box;
+
 	
 }
 div.gallery {
