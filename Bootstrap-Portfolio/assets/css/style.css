@@ -20,3 +20,13 @@ body {
 textarea{
   max-width: 100%
 }
+
+.panel-info{
+  animation-name: panelHeader;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+@keyframes panelHeader {
+    from {background-color: #d2eaf6;}
+    to {background-color: #31708f;}
+}
