@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+</head>
+
+<body style="background-image:url("http://www.sightwordsgame.com/wp-content/uploads/2011/11/Hangman.jpg");">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Hangman</h1>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3>Games Won:</h3>
+						<p id="GamesWonId"></p>
+						<h3>Games Lost:</h3>
+						<p id="GamesLostId"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h3>Guesses Left: </h3>
+						<p id="GuessesLeftId"></p>
+						<h3>Letters Guessed:</h3>
+						<p id="LettersGuessedId"></p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<h2>Guess the Rapper</h2>
+				<h3 id="GameBoardId"></h3>
+				<h3 id="GuessedId"></h3>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+
+
+</body>
+<script type="text/javascript">
+
+	function game(){
+			//array of possible words
+			//this.Words=[["m","a","d","o","n","n","a"],["n","i","c","k","i"," ","m","i","n","a","j"] ,["s","h","a","k","i","r","a"]],
+			this.Words=["notorious big","kodak black","gucci mane", "jay z", "outkast", "eminem", "kendrick lamar", "j cole", "nas", "kanye west", "method man", "big pun", "snoop dogg", "puff daddy", "master p", "lil wayne"],
+
+			this.LettersGuessed=[];
+
+			//string representing the game board
+			this.GameString="",
+
+			//String representing guessed letters
+			this.GuessedString="",
+
+			
+			this.GuessesLeft= 10,
+			this.GamesWon=0,
+			this.GamesLost=0,
+			this.HighScore= 0,
+
+			//function to convert to game board
+			this.ConvertWordToGame=function(word){
+				//string representing the game board
+				var gameString=[];
+
+				//puts an underscore for everything but white space
+				for(i=0;i<word.length;i++){
+					if(word[i] !== " "){
+						gameString.push("_");
+						
+					}
+					else
+						gameString.push("&nbsp;");
+						
+				}
+				return gameString;
+			},
+
+			//function to pick a random word from Words string
+			this.PickWord=function (words){
+
+				return words[Math.floor(Math.random()*words.length)];
+			},
+			this.currentWord=this.PickWord(this.Words),
+			this.GameString= this.ConvertWordToGame(this.currentWord),
+			//function to 
+
+			this.CheckGuess =function(guess, currWord) {
+				var isCorrect=false;
+				for(var i=0; i<this.LettersGuessed.length;i++){
+					if(guess==this.LettersGuessed[i]){
+						alert("already guessed " + guess);
+						return;
+					}
+				}
+				//if currWord contains guess return true
+				for(var i=0;i<currWord.length;i++){
+					
+					if(guess===currWord[i]){
+						this.GameString[i] = guess.charAt(0);
+						console.log("true");
+						
+						
+						
+						isCorrect=true;
+					}
+
+				}
+				document.getElementById("GameBoardId").innerHTML = this.GameString.join(" ");
+				if(!isCorrect){
+					this.GuessesLeft--;
+					document.getElementById("GuessesLeftId").innerHTML=this.GuessesLeft;
+					if(this.GuessesLeft<1){
+						
+						this.GamesLost++;
+						document.getElementById("GamesLostId").innerHTML=this.GamesLost;
+						this.LettersGuessed=[];
+					document.getElementById("LettersGuessedId").innerHTML=this.LettersGuessed;
+					this.currentWord = this.PickWord(this.Words);
+					this.GameString = this.ConvertWordToGame(this.currentWord);
+					document.getElementById("GameBoardId").innerHTML = this.GameString.join(" ");
+
+					//check andupdate high score
+					//reset and update guesses
+					this.GuessesLeft=10;
+					document.getElementById("GuessesLeftId").innerHTML=this.GuessesLeft;return;
+					}
+					this.LettersGuessed.push(guess);
+					document.getElementById("LettersGuessedId").innerHTML=this.LettersGuessed;
+				}
+			}
+			this.CheckWin= function(gameString){
+				var isWinner = false;
+				for (var i = gameString.length - 1; i >= 0; i--) {
+					if(gameString[i].charAt(0)=="_"){
+						return;
+					}
+						
+						
+				}
+				isWinner = true;
+				if(isWinner){
+					this.GamesWon++;
+					document.getElementById("GamesWonId").innerHTML=this.GamesWon;
+
+					this.LettersGuessed=[];
+					document.getElementById("LettersGuessedId").innerHTML=this.LettersGuessed;
+					this.currentWord = this.PickWord(this.Words);
+					this.GameString = this.ConvertWordToGame(this.currentWord);
+					document.getElementById("GameBoardId").innerHTML = this.GameString.join(" ");
+
+					//check andupdate high score
+					//reset and update guesses
+					this.GuessesLeft=10;
+					document.getElementById("GuessesLeftId").innerHTML=this.GuessesLeft;
+				}
+			}
+		};
+	var game = new game();
+	
+	document.getElementById("GamesWonId").innerHTML=game.GamesWon;
+	document.getElementById("GamesLostId").innerHTML=game.GamesLost;
+	
+	document.getElementById("GuessesLeftId").innerHTML=game.GuessesLeft;
+	
+	 
+	 document.getElementById("GameBoardId").innerHTML = game.GameString.join(" ");
+	document.onkeyup = function(event){
+		//if(event.key==="a"){
+			
+			if(/[a-z]/i.test(String.fromCharCode(event.keyCode))){
+			game.CheckGuess(event.key, game.currentWord);
+			game.CheckWin(game.GameString);
+		}
+		//}
+	}
+</script>
+</html>
