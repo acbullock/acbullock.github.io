@@ -1,7 +1,20 @@
-//Object definition
+//Object definitions
+
+//word constructor--each word has a string and a sound
+
+
+
 var game = {
+
+	//will act as a word constructor
+	makeWord: function(word, sound){
+		this.word=word;
+		this.sound=sound;
+	},
+	
 	//Array of possible words
-	words:["notorious big","kodak black","gucci mane","french montana", "migos", "jay z","tupac shakur", "outkast", "eminem", "future", "kendrick lamar", "j cole", "nas", "kanye west", "method man", "big pun", "snoop dogg", "puff daddy", "master p", "lil wayne"],
+	words:[],
+
 
 	currentWord:"",
 
@@ -37,7 +50,7 @@ var game = {
 	//Function to pick a random word from the Words array
 	//accepts an array, returns a random element
 	PickWord: function(words){
-		return words[Math.floor(Math.random()*words.length)];
+		return words[Math.floor(Math.random()*words.length)].word;
 	},
 
 	//Function to start new game
@@ -95,7 +108,16 @@ var game = {
 		return isCorrectGuess;
 
 	},
+	
 
+
+
+	PlayWinningSong: function(word, words){
+		for(var i =0; i< this.words.length; i++){
+			if(this.words[i].word===word)
+				this.words[i].sound.play();
+		}
+	},
 	//checks if a user has won
 	CheckWin: function(){
 		
@@ -105,8 +127,9 @@ var game = {
 			}
 		}
 		this.gamesWon++;
-		var audio = new Audio('assets/sounds/DJ - Khaled.mp3');
-		audio.play();
+		
+		this.PlayWinningSong(this.currentWord, this.words);
+		
 		this.StartNewGame();
 		return true;
 	},
@@ -120,11 +143,12 @@ var game = {
 		document.getElementById("LettersGuessedId").innerHTML = this.lettersGuessed;
 		document.getElementById("GuessesLeftId").innerHTML = this.guessesLeft;
 
-	}
+	},
+
 
 
 }
-
+	game.words=[new game.makeWord("nicki minaj", new Audio('assets/sounds/Nicki - Minaj.mp3')), new game.makeWord("outkast", new Audio('assets/sounds/Big Boi From Outkast - Big Boi From Outkast.mp3')), new game.makeWord("travis scott", new Audio('assets/sounds/Travis Scott - Intro sound signature.mp3')), new game.makeWord("desiigner", new Audio('assets/sounds/Desiigner - Desiigner.mp3')), new game.makeWord("migos", new Audio('assets/sounds/Migos - Raindrop Drop Top Sound Effect.mp3')), new game.makeWord("madeintyo", new Audio('assets/sounds/Made - In.mp3')), new game.makeWord("lil wayne", new Audio('assets/sounds/Lil - Wayne.mp3')), new game.makeWord("kanye west", new Audio('assets/sounds/Kanye West - Kanye West.mp3')), new game.makeWord("rick ross", new Audio('assets/sounds/Rick - Ross.mp3')), new game.makeWord("french montana", new Audio('assets/sounds/french - montana.mp3')), new game.makeWord("gucci mane", new Audio('assets/sounds/Gucci - Mane.mp3')), new game.makeWord("nas", new Audio('assets/sounds/Nas - Saying.mp3')),new game.makeWord("lil uzi vert", new Audio('assets/sounds/Lil Uzi Vert - It Do Not Matter Sound Effect.mp3')),new game.makeWord("kodak black", new Audio('assets/sounds/Kodak Black - The Finesse Kid Sound Effect.mp3')), new game.makeWord("eminem", new Audio('assets/sounds/Eminem - Slim.mp3')),new game.makeWord("big sean", new Audio('assets/sounds/Big - Sean.mp3')),new game.makeWord("jay z", new Audio('assets/sounds/JAY - Z.mp3')),new game.makeWord("lil jon", new Audio('assets/sounds/LIL - JON.mp3')),new game.makeWord("notorious big",new Audio('assets/sounds/BIGGIE - AND.mp3')),new game.makeWord("dj khaled",new Audio('assets/sounds/DJ - Khaled.mp3'))];
 //when the page is loaded, the landing page is displayed and the game page isn't
 document.getElementById("GamePage").style.display="none";
 document.getElementById("LandingPage").style.display="block";
