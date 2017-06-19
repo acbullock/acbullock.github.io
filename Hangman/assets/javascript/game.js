@@ -65,23 +65,26 @@ var game = {
 		guess=guess.toUpperCase();
 		currWord=currWord.toUpperCase();
 
-		var isCorrectGuess = false;
+		var isCorrectGuess = this.words[this.currentIndex].word.toUpperCase().includes(guess);
 
 		//Do nothing if user already guessed this letter
 		if(this.lettersGuessed.includes(guess) || this.gameString.includes(guess))
 			return;
 		
-		//determine if correct/incorrect guess
-		for(var i = 0; i < currWord.length; i++){
-			if(guess === currWord[i]){
-				//update game string if correct
-				this.gameString[i] = guess;
-				isCorrectGuess = true;
+		//update game string if correct guess
+		if(isCorrectGuess){
+
+			for(var i = 0; i < currWord.length; i++){
+				if(guess === currWord[i]){
+					
+					this.gameString[i] = guess;
+					isCorrectGuess = true;
+				}
 			}
 		}
 		
 		//update game object accordingly
-		if(!isCorrectGuess){
+		else{
 			this.guessesLeft--;
 			//warn user when 3 guesses remaining
 			if(this.guessesLeft<4){
