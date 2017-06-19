@@ -1,6 +1,6 @@
 body{
 	background-image:url("../images/hip-hop.png");
 }
-#Test1, #Test2{
+header, #DefaultPanel, #StatsPanel{
 	background-image:url("../images/hip-hop-2.png");
 }

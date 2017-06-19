@@ -2,16 +2,15 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Hangman | Hip Hop Edition</title>
-	<link rel="stylesheet" href="assets/css/style.css">
+	<title>Hangman | Hip Hop Edition</title>	
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	
-	
+	<!--linking external css-->
+	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <!--has a container for the landing page and the main game page-->
 <body>
-	<!--Landing Page-->
+	<!--Landing Page - shows when page is first loaded-->
 	<div id="LandingPage" class="container">
 		<header>
 			<h1 class="text-center">Hangman</h1>
@@ -22,6 +21,7 @@
 			<h1 class="text-center">Press any key to get started!</h1>
 		</div>	
 	</div>
+	<!--Game Page- shows onkeyup-->
 	<div id="GamePage" class="container">
 		<header >
 			<h1 class="text-center">Hangman</h1>
@@ -29,57 +29,54 @@
 			<br><br><br>
 		</header>
 		<div class="row">
+			<h5 class="text-center text-muted">Type a Letter to Get Started!</h5>
+		</div>	
+		<div class="row">
 			<!--Current Game-->
 			<div class="col-md-8">
-						<div class="panel panel-default panel-warning" id="Test1">
-							<div class="panel-title text-center text-warning">
-								<h3><strong>Current Game</strong></h3>
+				<div class="panel panel-default panel-warning" id="DefaultPanel">
+					<div class="panel-title text-center text-warning">
+						<h3><strong>Current Game</strong></h3>
+					</div>
+					<div class="panel-body text-center">
+						<div class="row">
+							<!--guesses remaining column-->
+							<div class="col-md-6 col-sm-6 text-center">
+								<h4 class="text-warning">Guesses Remaining: </h4>
+								<h4 id="GuessesLeftId"></h4>
 							</div>
-							<div class="panel-body text-center">
-								<div class="row">
-									<div class="col-md-6 col-sm-6 text-center">
-										<h4 class="text-warning">Guesses Remaining: </h4>
-										<h4 id="GuessesLeftId"></h4>
-									</div>
-									<div class="col-md-6 col-sm-6 text-center">
-										<h4 class="text-warning">Letters Already Guessed: </h4>
-										<h4 id="LettersGuessedId"></h4>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<h3 class="text-center">Guess The Artist</h3>
-										<h3 class="text-center" id="GameBoardId"></h3>
-									</div>
-								</div>
+							<!--letters guessed column-->
+							<div class="col-md-6 col-sm-6 text-center">
+								<h4 class="text-warning">Letters Already Guessed: </h4>
+								<h4 id="LettersGuessedId"></h4>
 							</div>
-					
-					
 						</div>
-				
+						<div class="row">
+							<div class="col-md-12">
+								<h3 id="HintId" class="text-center"></h3>
+								<h3 class="text-center" id="GameBoardId"></h3>
+							</div>
+						</div>
+					</div>		
+				</div>	
 			</div>
 			<!--Wins/Losses Stats-->
-			<div    class="col-md-4">
-				<div  class="panel panel-default panel-info" id="Test2">
+			<div  class="col-md-4">
+				<div  class="panel panel-default panel-info" id="StatsPanel">
 					<div class="panel-title text-center text-info" ><h3 class="text-center"><strong>
 						Stats</strong></h3>
 					</div>
 					<div class="panel-body">
 						<div class="row">
+							<!--Wins column-->
 							<div class="col-md-6 col-sm-6 text-center">
 								<h4 class="text-info">Wins: </h4>
-								<h4 id="GamesWonId"></h4>
-								
+								<h4 id="GamesWonId"></h4>	
 							</div>
+							<!--Losses column-->
 							<div class="col-md-6 col-sm-6  text-center">
 								<h4 class="text-info">Losses: </h4>
 								<h4 id="GamesLostId"></h4>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-							</div>
-							<div class="col-md-6">
 							</div>
 						</div>
 					</div>
@@ -89,9 +86,6 @@
 	</div>
 
 	<!--linking external javascript-->
-<script type="text/javascript" src="assets/javascript/game.js"></script>
+	<script type="text/javascript" src="assets/javascript/game.js"></script>
 </body>	
-
-
-
 </html>
