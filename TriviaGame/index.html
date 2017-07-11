@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+	
+	<header class="panel panel-default col-sm-12 col-xs-12 col-md-12">
+		<h1 class="text-center">Basketball Trivia</h1>
+	</header>
+	
+	<!--Timer Section-->
+	<div class="container">
+		<div class="row">
+			<panel id="timerPanel" class="panel panel-info col-sm-12 col-xs-12 col-md-12">
+				<h2 class="text-info text-center">SHOT CLOCK:</h2>
+				<h2 class="text-center" id="timer"></h2>
+			</panel>
+		</div>
+	</div>
+	<!--Question Section-->
+	<div class="container">
+		<div class="row">
+			<panel id="questionPanel" class="panel panel-primary col-sm-12 col-xs-12 col-md-12">
+				<h2 class="text-primary text-center">Question:</h2>
+				<h2 class="text-center" id="question"></h2>
+			</panel>
+		</div>
+	</div>
+<!--Choices Section-->
+	<div class="container">
+		<div class="row">
+			<panel id="choicesPanel" class="panel panel-primary col-sm-12 col-xs-12 col-md-12">
+				
+			</panel>
+		</div>
+	</div>
+	<!--Question Result Section-->
+	<div class="container">
+		<div class="row">
+			<panel id="questionResultsPanel" class="panel panel-primary text-center col-sm-12 col-xs-12 col-md-12">
+				<h2 class="text-primary" id="status"></h2>
+				<h3 id="correctAnswer"></h3>				
+				
+			</panel>
+		</div>
+	</div>
+	<!--Results Section-->
+	<div class="container">
+		<div class="row">
+			<panel id="resultsPanel" class="panel panel-primary text-center col-sm-12 col-xs-12 col-md-12">
+				<h2 class="text-primary">Results:</h2>
+				<h3 id="wins" class="text-success ">Correct Answers:</h3>
+				<h3 id="losses" class="text-danger ">Incorrect Answers:</h3>
+				<h3 id="unanswered" class="text-warning ">Unanswered:</h3>
+				
+				<button id="restartBtn" class="btn btn-lg btn-success">Restart Quiz</button>
+			</panel>
+		</div>
+	</div>
+	
+	<!--Start Section-->
+	<div class="container">
+		<div class="row">
+			<panel id="startPanel" class="panel panel-primary text-center col-sm-12 col-xs-12 col-md-12">
+				<h2 class="text-primary">Basketball Trivia Quiz! </h2>
+				<button id="startBtn" class="btn btn-lg btn-success">Start</button>
+			</panel>
+		</div>
+	</div>
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="assets/javascript/app.js"></script>
+</body>
+</html>

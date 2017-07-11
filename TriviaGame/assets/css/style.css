@@ -1,0 +1,14 @@
+panel{
+	margin:20px;
+	padding:20px;
+	
+}
+body{
+	background-image: url("../images/bball.jpg");
+	background-repeat:"false";
+	opacity:1;
+
+}
+button{
+	padding:10px;
+}
