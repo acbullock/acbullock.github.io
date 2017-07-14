@@ -52,6 +52,7 @@ var functionSearchNYT = function(q, limit, begin, end){
         //alert(dateTime.text());
 
         var link = $("<a>");
+        link.attr("target", "_blank");
         link.text(articles[i].web_url);
         link.attr("href", link.text());
 
@@ -85,7 +86,7 @@ $("#submit").on("click", function(){
 $("#clear").on("click", function(){
   $("#results").empty();
 });
-$("#submit").prop("disabled", true);
+
 var validateFunction = function(){
 	var hasError = false;
 	if($("#title").eq(0).val()==""){
@@ -147,5 +148,5 @@ var validateFunction = function(){
 document.onkeyup = function(){
 	validateFunction();
 };
-
+validateFunction();
 //functionSearchNYT();
