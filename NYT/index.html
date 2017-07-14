@@ -19,9 +19,12 @@
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12 jumbotron text-center">
-			<i class="fa fa-newspaper-o"></i> New York Times Search
-		</div>
+				<div class="col-md-12">
+					<div class="jumbotron text-center">
+						<i class="fa fa-newspaper-o"></i> New York Times Search
+					</div>
+				</div>
+				
 			</div>
 		</div>
 
@@ -29,48 +32,59 @@
 		
 		<div class="container">
 			<div class="row">
-				<panel id="searchPanel" class=" col-md-12 col-sm-12 col-xs-12 panel	 form-group">
-					<div class="panel-heading">
-						<i class="fa fa-list-alt" aria-hidden="true"></i> Search Parameters
-					</div>
-					<div class="panel-body">
-					<label>Search Term: </label><input id="title" class="form-control" type="input" name="title"/>
-					<br/><br/>
-					<label>Number of Records To Retrieve</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div id="searchPanel" class="  panel	 form-group">
+						<div class="panel-heading">
+							<i class="fa fa-list-alt" aria-hidden="true"></i> Search Parameters
+						</div>
+						<div class="panel-body">
+							<label>Search Term: </label><input id="title" class="form-control" type="input" name="title"/>
+							<br/><br/>
+							<label>Number of Records To Retrieve</label>
 					
   
   						
-					<select id="limit" class="form-control">
-						<option>1</option>
-						<option>5</option>
-						<option>10</option>
-					</select>
-					<br/><br/>
-					<label>Begin Year (Optional): </label><input class="form-control" id="begin" type="input" name="begin"/>
-					<br/><br/>
-					<label>End Year (Optional): </label><input class="form-control" id="end" type="input" name="end"/>
-					<br/><br/>
+							<select id="limit" class="form-control">
+								<option>1</option>
+								<option>5</option>
+								<option>10</option>
+							</select>
+							<br/><br/>
+							<label>Begin Year (Optional): </label><input class="form-control" id="begin" type="input" name="begin"/>
+							<br/><br/>
+							<label>End Year (Optional): </label><input class="form-control" id="end" type="input" name="end"/>
+							<br/><br/>
 					
-					<button id="submit" class="btn btn-lg" ><i class="fa fa-search" aria-hidden="true"></i> Search </button>
+							<button id="submit" class="btn btn-lg" ><i class="fa fa-search" aria-hidden="true"></i> Search </button>
 					
-					<button id="clear" class="btn btn-lg" ><i class="fa fa-trash" aria-hidden="true"></i> Clear Results </button>
+							<button id="clear" class="btn btn-lg" ><i class="fa fa-trash" aria-hidden="true"></i> Clear Results </button>
+						</div>
 					</div>
-				</panel>
+
+
+
+
+				</div>
+				
 			
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			
-			<panel  class="panel col-md-12 col-sm-12 col-xs-12">
-				<div class="panel-heading ">
-					<i class="fa fa-table" aria-hidden="true"></i> Top Articles
-				</div>
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div  class="panel">
+					<div class="panel-heading ">
+						<i class="fa fa-table" aria-hidden="true"></i> Top Articles
+					</div>
 				
-				<div id="results" class="panel-body">
+					<div id="results" class="panel-body">
 					
+					</div>
 				</div>
-			</panel>
+
+
+			</div>
+			
 		</div>
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
