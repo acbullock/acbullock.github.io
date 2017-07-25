@@ -130,11 +130,11 @@ var updater = function(childSnapshot) {
 			var newDest = prompt("Edit Destination.  Cancel to keep current value.");
 			var newRate = prompt("Edit Frequency.  Cancel to keep current value.");
 			var newStart = prompt("Edit start (HH:mm - military time). Cancel to keep current value.");
-			if(!isNullOrWhitespace(newRate)){
+			if(!isNaN(newRate)){
 				
 				rate = newRate;
 			}
-			if(!isNullOrWhitespace(newStart)){
+			if(!isNullOrWhitespace(newStart) && moment(newStart, "hh:mm").isValid()){
 				
 				start = newStart;
 				start = moment(start, "hh:mm").format("X");
