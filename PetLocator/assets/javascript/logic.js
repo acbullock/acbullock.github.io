@@ -1,10 +1,9 @@
-// TODO: 
-// - signUp logIn validation
-// - email contacnt form
-// - search results crollable 
-// - add a footer
+// TODO:  
+// - add a footer - Giscard
+//nav bar with View Favorites as a link that pops up the modal - Giscard
+//replace loading gif with glyphicon that we animate in css with "spin"
 
-
+//refactor search and favs code (remove duplicates) - Alex
 firebase.initializeApp(config);
 
 //VARIABLES
@@ -14,13 +13,12 @@ var userID = "";
 var userEmail="";
 var userRef ="";
 var pets=[];
-var userName = "";
 var database = null;
 
-//TO DO: GET FROM FIREBASE AUTHENTICATION (GET CURRENT USER)
+//
 // ****************************
 // if user is logged in then it should import history
-// and show to screen
+// 
 // TODO: 
 // - if user is logged in have variables from that user with the 
 //   history
@@ -28,7 +26,7 @@ var database = null;
 // ****************************
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-  	console.log(user);
+  	console.log("asdfasdf"+user);
     $("#btn-logOut").show();
     $("#btn-logIn").hide();
    
@@ -40,7 +38,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
     //Set user variables if user exists..
-    userID=user.uid
+    userID=user.uid;
     userEmail = user.email;
     userRef = firebase.database().ref("/"+userID);
 
@@ -49,14 +47,20 @@ firebase.auth().onAuthStateChanged(function(user) {
     //Create user in DB. Save the user's email.
     console.log("something " );
     console.log( user);
-    console.log(user.displayName);
-
+    
     userRef.child("email").set(userEmail);
-    userRef.child("name").set(user.displayName);
+    //userRef.child("name").set(user.displayName);
 
+   	$("#loggedInLabel").addClass("text-info");
+   	$("#loggedInLabel").html("Logged in as " + userEmail);
+    
 
-    $("#loggedInLabel").html("Logged in as " + user.displayName);
-    $("#favModalLabel").html(user.displayName + "'s Favorites" );
+    //===================
+    //start building user's favorites modal..
+    var favHeader = $("<h2>");
+    favHeader.css("font-weight", "bold");
+    favHeader.html(userEmail + "'s Favorites" );
+    $("#favModalLabel").html(favHeader);
     //set database ref
     database  = firebase.database().ref();
 
@@ -92,6 +96,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         well.addClass("well");
 
         var img = $("<img>");
+        img.css("height", "150px");
         //only set image if it exists..
         userRef.child("favorites").child(name).child("photo").once("value").then(function(snapshot){
           img.attr("src", snapshot.val());
@@ -119,6 +124,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         var emailHeader = $("<h3>");
         emailHeader.css("font-weight", "bold");
+        emailHeader.css("overflow", "hidden");
         emailHeader.html("Email: "+email);
 
         var phoneHeader = $("<h3>");
@@ -136,12 +142,14 @@ firebase.auth().onAuthStateChanged(function(user) {
           var rem = $(this).attr("data-key");
           userRef.child("favorites").child(rem).remove();
         });
+        removeBtn.css("margin-bottom", "10px");
 
         var contactBtn = $("<button>");
         contactBtn.text("Contact");
         contactBtn.addClass(" btn btn-info");
         contactBtn.attr("data-key", name);
-
+        contactBtn.css("margin-right", "10px");
+        contactBtn.css("margin-bottom", "10px");
 
         var contactForm = $("<form>");
         
@@ -151,13 +159,14 @@ firebase.auth().onAuthStateChanged(function(user) {
         contactForm.append(formGroupDiv);
         contactForm.css("border-width", "1px");
         contactForm.css("border-style", "inset");
-        contactForm.attr("data-key", name);
+        contactForm.attr("id", index);
         contactForm.hide();
 
         contactBtn.on("click", function(event){
         	event.preventDefault();
         	var key = $(this).attr("data-key");
-        	$("[data-key = "+name+"]").show();
+        	$("[id='"+index+"']").show(400);
+        	//$("#form-"+name).show();
         	//[href='default.htm']
         });
 
@@ -172,20 +181,47 @@ firebase.auth().onAuthStateChanged(function(user) {
         subjectLabel.html("Subject:");
         var subjectInput = $("<input>");
         subjectInput.addClass("form-control");
+        subjectInput.val("Hi, I am interested in one of your pets");
 
         var msgLabel = $("<label>");
         msgLabel.html("Message:");
         var msgArea = $("<textarea>");
         msgArea.addClass("form-control");
+        msgArea.val("Hi I am looking to get more information on "+ name + ".");
+
+        var sentMsgLabel = $("<label>");
+        sentMsgLabel.addClass("text-success");
+        sentMsgLabel.html("Message sent.");
+        sentMsgLabel.hide();
 
         var sendBtn = $("<button>");
-        sendBtn.addClass("btn btn-success");
+        sendBtn.addClass("btn btn-warning");
         sendBtn.html("Send Message");
+        sendBtn.css("margin-right", "10px");
+        sendBtn.css("margin-botom", "10px");
+        sendBtn.on("click", function(event){
+        	event.preventDefault();
+        	emailjs.send("gmail","template_LtXd8EpM",{
+  				from_name: userEmail,
+  				subject: subjectInput.val(),
+  				message_html: msgArea.val()
+			});
+			sentMsgLabel.show();
+			$("#form-"+name).hide();
+
+
+        });
 
         var closeBtn = $("<button>");
-        closeBtn.addClass("btn btn-warning");
+        closeBtn.addClass("btn btn-default");
         closeBtn.html("Close");
+        closeBtn.on("click", function(event){
+        	event.preventDefault();
+        	$("[id='"+index+"']").hide(400);
+        	
+        });
 
+        
         formGroupDiv.append(toLabel);
         formGroupDiv.append(toInput);
 
@@ -196,13 +232,14 @@ firebase.auth().onAuthStateChanged(function(user) {
         formGroupDiv.append($("<br>"));
         formGroupDiv.append(sendBtn);
         formGroupDiv.append(closeBtn);
-
+        formGroupDiv.append(sentMsgLabel);
+        formGroupDiv.css("padding", "10px");
         well.append(contactBtn);
         well.append(contactForm);
 
         //Add the remove button to the well..
         well.append(removeBtn );
-        well.append($("<br>"));
+        well.append($("<hr>"));
         well.append($("<br>"));
 
         //append all the favorite info to the well..
@@ -215,9 +252,14 @@ firebase.auth().onAuthStateChanged(function(user) {
         well.append(aboutHeader);
         well.append(emailHeader);
         well.append(phoneHeader);
- 
+
+        //well.css("background-color", "#87A257");
+  		//well.css("color", "#F4F2F1");
+
         //append the current well to the favModal.
         $("#favorites-section").append(well);
+        $("#favorites-section").append($("<br>"));
+        $("#favorites-section").append($("<br>"));
 
       });
     });
@@ -285,7 +327,7 @@ var createWellForResult = function(index, pet){
 
   //display which # result it is..
 	var number = $("<label>");
-  number.addClass("fa-stack fa-lg");
+	number.addClass("fa-stack fa-lg");
   number.append($("<i class='fa fa-square fa-stack-2x'></i>"));
   number.append($("<i class='fa fa-inverse fa-stack-1x'>"+(index+1)+"</i>"));
   //append to well..
@@ -295,8 +337,11 @@ var createWellForResult = function(index, pet){
  	if(pet.media.photos!== undefined){
  		for(var i = 1; i < pet.media.photos.photo.length; i+=5){
   			var photo = $("<img>");
+  			photo.addClass("img-thumbnail");
+  			photo.css("height", "150px");
 		    photo.attr("src", pet.media.photos.photo[i].$t);
 		    photo.css("padding", "10px");
+		    photo.css("margin", "10px");
 		    well.append(photo);
   		}
 
@@ -339,16 +384,29 @@ var createWellForResult = function(index, pet){
   }
   phone.html(" Phone: "+phoneText);
 
+
+  //create label to let user know fav was added..
+  var addedLabel = $("<label>");
+  addedLabel.addClass("text-success");
+  addedLabel.html("  " + pet.name.$t+" has been added to your favorites!");
+  addedLabel.hide();
+
+
   var favButton = $("<button>");
-  favButton.addClass("btn btn-info fav-btn");
+  favButton.addClass("btn btn-warning fav-btn");
   favButton.text("Add to Favorites!")
   favButton.attr("data-index", index);
   
   favButton.on("click", function(){
     //call function that adds to firebase
     addFavorite(pets, index);
+    $(this).hide(500);	
+    //todo: catch error
+    addedLabel.show(500);
+
   });
 
+  
   //add everything to the well..
   well.append(nameHeader);
   well.append(age);
@@ -359,6 +417,9 @@ var createWellForResult = function(index, pet){
   well.append(email);
   well.append(phone);
   well.append(favButton);
+  well.append(addedLabel);
+  //well.css("background-color", "#87A257");
+  //well.css("color", "white");
 
   //add the well to the results panel..
 	$("#results-panel").append(well);
@@ -388,12 +449,17 @@ $("#find-btn").on("click", function(event){
   var animalType="";
   var animalSize="";
   var animalSex="";
+  var busyBox = $("<img>");
+
+  busyBox.attr("src", "assets/images/loading.gif");
+  busyBox.addClass("col-md-12");
 
   var zipCode="";
   queryURL += key;
   
 	//empty current resutls every time a user does a new search
-  $("#results-panel").html("");
+  $("#results-panel").html(busyBox);
+
   //retreive the search criteria..
 	animalType = $("#animal-type-input").val().trim();
 	animalSize = $("#animal-size-input").val().trim();
@@ -412,11 +478,12 @@ $("#find-btn").on("click", function(event){
 	}
 
   //finish building query..
-	queryURL+="&location="+zipCode+"&callback=?";
-  
+	queryURL+="&location="+zipCode+"&count=5&callback=?";
+  	
 	$.getJSON(queryURL)
   .done(function(petApiData) { 
-    
+    $("#results-panel").html("");
+    console.log(petApiData);
   	if(petApiData.petfinder.pets !== undefined){
       pets = petApiData.petfinder.pets.pet;
       $.each(pets, function(index, value){
@@ -447,8 +514,9 @@ $("#find-btn").on("click", function(event){
 // ****************************
 $("#btnSignUp").on("click", function(e) {
   e.preventDefault();
+
   var email = $("#formEmailSignUp").val();
-  userName = $("#formNameSignUp").val();
+  
   var pass = $("#formPassSignUp").val();
 
   console.log(email + " " + pass);
@@ -458,19 +526,13 @@ $("#btnSignUp").on("click", function(e) {
   promise
   .then(function(){
 
-    var user = firebase.auth().currentUser;
-    user.updateProfile({
-      displayName: userName
-
-    }).then(function() {
-      // Update successful.
-    }).catch(function(error) {
-      console.log(error.message);
-    });
+    
+    
    
    $("#myModal").modal("hide");
   })
   .catch(function(e) {
+
   	$(".errorMsg").html(e.message);
     console.log(e.message);
   });
@@ -482,6 +544,11 @@ $("#btnSignUp").on("click", function(e) {
   
   
 });
+
+
+	
+
+
 
 // ****************************
 // creates event for the log in 

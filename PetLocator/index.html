@@ -6,13 +6,20 @@
 	<title>Document</title>
 	<!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" text="text/css" href="assets/css/style.css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://smtpjs.com/smtp.js"></script>
       <link rel="stylesheet" href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" >
-
+<link rel="stylesheet" text="text/css" href="assets/css/style.css">
     <!-- Firebase Reference -->
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+		<script type="text/javascript">
+   		(function(){
+      		emailjs.init("user_uiLV9ixkmOKof9Vi8qyV1");
+   		})();
+		</script>
     
 </head>
 <body>
@@ -22,16 +29,19 @@
 				<nav class="navbar navbar-default">
 				  	<div class="container-fluid">
 						<div class="navbar-header">
+
 							<button type="button" class="btn btn-default navbar-btn" id="btn-logIn">Log in</button>
 							<label type="text" id="loggedInLabel"></label>
+							<button id="view-fav-btn" type="button" class="btn btn-info" data-toggle="modal" data-target="#favModal">View Favorites</button>
+
 					  		<button type="button" class="btn btn-default navbar-btn" id="btn-logOut">Log out</button>
+
+					  		
 						</div>
 				  	</div>
 				</nav>
 				
-				<div class="jumbotron">
-					<h1 class="text-center"><b>Pet Locator Funhouse</b></h1>
-				</div>
+				
 			</div>
 		</div>
 		<div id="locatorRow" class="row">
@@ -44,7 +54,6 @@
 						<form>
 							<div class="form-group">
 								<label>Animal Type</label>
-									
 								<select class="form-control"  id="animal-type-input">
 									<option>show all</option>
 									<option>barnyard</option>
@@ -91,11 +100,16 @@
 									
 								
 							</div>
-							<div class="btn-group">
-							<button id="find-btn" class="btn btn-primary">Find Pets!</button>
-							<button id="clear-btn" class="btn btn-default">Clear Search Results</button></div><br/><br/>
+							<hr/>
+							<div id="find-and-clear" class="btn-group">
+							<button id="find-btn" class="btn btn-primary btn-block">
+								<span class="glyphicon glyphicon-search"></span>
+								<span> Find Pets!</span>
+							</button>
+							<button id="clear-btn" class="btn-block btn btn-default">Clear Search Results</button></div><br/><br/>
+							
 							<div>
-								<button id="view-fav-btn" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#favModal">View Favorites</button>
+								
 								<!-- Modal -->
 								<div class="modal fade" id="favModal" tabindex="-1" role="dialog" aria-labelledby="favModalLabel">
 								  <div class="modal-dialog" role="document">
@@ -178,16 +192,12 @@
 									<input type="password" class="form-control" id="formPassLogIn" placeholder="Password">
 								</div>
 								<button type="submit" class="btn btn-default" id="btnLogIn">Log in</button>
-								<label class = "errorMsg"></label>
+								<label class = "errorMsg text-danger"></label>
 							</form>
 						</div>
 						<div id="signUp" class="tab-pane fade">
 							<br>
 							<form>
-								<div class="form-group">
-									<label for="formNameSignUp">Customer Name</label>
-									<input type="text" class="form-control" id="formNameSignUp" placeholder="i.e John Doe">
-								</div>
 								<div class="form-group">
 									<label for="formEmailSignUp">Email address</label>
 									<input type="email" class="form-control" id="formEmailSignUp" placeholder="Email">
