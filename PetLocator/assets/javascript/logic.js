@@ -1,6 +1,5 @@
 // TODO:  
 // - add a footer - Giscard
-//nav bar with View Favorites as a link that pops up the modal - Giscard
 //replace loading gif with glyphicon that we animate in css with "spin"
 
 //refactor search and favs code (remove duplicates) - Alex
@@ -26,6 +25,7 @@ var database = null;
 // ****************************
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+
   	console.log("asdfasdf"+user);
     $("#btn-logOut").show();
     $("#btn-logIn").hide();
@@ -41,7 +41,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     userID=user.uid;
     userEmail = user.email;
     userRef = firebase.database().ref("/"+userID);
-
+    $("#contactUsFormEmail").val(userEmail);
 
 
     //Create user in DB. Save the user's email.
@@ -52,7 +52,12 @@ firebase.auth().onAuthStateChanged(function(user) {
     //userRef.child("name").set(user.displayName);
 
    	$("#loggedInLabel").addClass("text-info");
-   	$("#loggedInLabel").html("Logged in as " + userEmail);
+   	var labelSpan1 = $("<span>");
+   	labelSpan1.addClass("glyphicon	glyphicon-user");
+   	var labelSpan2 = $("<span>");
+   	labelSpan2.html(" "+userEmail);
+   	$("#loggedInLabel").html(labelSpan1);
+   	$("#loggedInLabel").append(labelSpan2);		
     
 
     //===================
@@ -165,7 +170,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         contactBtn.on("click", function(event){
         	event.preventDefault();
         	var key = $(this).attr("data-key");
-        	$("[id='"+index+"']").show(400);
+        	$("[id='"+index+"']").toggle(400);
         	//$("#form-"+name).show();
         	//[href='default.htm']
         });
@@ -201,6 +206,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         sendBtn.css("margin-botom", "10px");
         sendBtn.on("click", function(event){
         	event.preventDefault();
+          //the "to" is hard coded in email js template..
         	emailjs.send("gmail","template_LtXd8EpM",{
   				from_name: userEmail,
   				subject: subjectInput.val(),
@@ -451,9 +457,9 @@ $("#find-btn").on("click", function(event){
   var animalSex="";
   var busyBox = $("<img>");
 
-  busyBox.attr("src", "assets/images/loading.gif");
-  busyBox.addClass("col-md-12");
-
+  busyBox.attr("src", "assets/images/petloading.gif");
+  busyBox.addClass("col-md-12 float-center");
+  busyBox.css("float", "33%");
   var zipCode="";
   queryURL += key;
   
@@ -594,3 +600,14 @@ $("#btn-logOut").on("click", function(e) {
   location.reload();
   
 });
+
+// // init controller
+// var controller = new ScrollMagic.Controller();
+
+// // create a scene
+// new ScrollMagic.Scene({
+//         duration: 100,    // the scene should last for a scroll distance of 100px
+//         offset: 50        // start this scene after scrolling for 50px
+//     })
+//     .setPin("#results-panel") // pins the element for the the scene's duration
+//     .addTo(controller); // assign the scene to the controller
