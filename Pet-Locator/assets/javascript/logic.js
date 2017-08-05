@@ -1,6 +1,4 @@
 // TODO:  
-// - add a footer - Giscard
-//replace loading gif with glyphicon that we animate in css with "spin"
 
 //refactor search and favs code (remove duplicates) - Alex
 firebase.initializeApp(config);
@@ -458,7 +456,7 @@ $("#find-btn").on("click", function(event){
   event.preventDefault();
 
   //Start Building query for petfinder API
-  var queryURL = "http://api.petfinder.com/pet.find?format=json&key=";
+  var queryURL = "https://api.petfinder.com/pet.find?format=json&key=";
   var key = "e5945be700ddfa206a0f57f1f6066743";
   var animalType="";
   var animalSize="";
@@ -467,7 +465,8 @@ $("#find-btn").on("click", function(event){
 
   busyBox.attr("src", "assets/images/petloading.gif");
   busyBox.addClass("col-md-12 float-center");
-  busyBox.css("float", "33%");
+  busyBox.css("min-height", "500px");
+  busyBox.css("max-height", "500px");
   var zipCode="";
   queryURL += key;
   
